@@ -20,6 +20,7 @@ public class ProductController {
         productList.add(new Product(2L, "washingmachine", 700.99));
         productList.add(new Product(2L, "watch", 100));
         productList.add(new Product(2L, "remote", 80));
+        productList.add(new Product(2L, "AC", 800));
     }
 
     // GET Request: http://localhost:8080/api/products
