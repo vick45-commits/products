@@ -1,0 +1,40 @@
+name: Spring Boot CI/CD Pipeline
+
+# Trigger the pipeline every time code is pushed or a pull request is made to the main branch
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Run on a fresh, clean Linux virtual machine
+
+    steps:
+      # 1. Pull the code from your GitHub repository into the runner environment
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Set up the specific Java environment required to build your app
+      - name: Set up JDK 17
+        uses: actions/actions-setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven # Caches dependencies so future builds run much faster
+
+      # 3. Clean past builds and execute all automated unit tests
+      - name: Run Unit Tests
+        run: mvn clean test
+
+      # 4. Package the application into an executable production JAR file without re-running tests
+      - name: Build Production JAR
+        run: mvn package -DskipTests
+
+      # 5. Optional: Upload the final compiled JAR file so you can download it later from GitHub
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spring-boot-app
+          path: target/*.jar
