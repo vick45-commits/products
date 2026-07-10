@@ -18,6 +18,7 @@ public class ProductController {
         productList.add(new Product(1L, "Laptop", 999.99));
         productList.add(new Product(2L, "Smartphone", 499.99));
         productList.add(new Product(2L, "washingmachine", 700.99));
+        productList.add(new Product(2L, "watch", 100));
     }
 
     // GET Request: http://localhost:8080/api/products
